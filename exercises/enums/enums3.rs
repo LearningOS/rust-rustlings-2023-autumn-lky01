@@ -8,6 +8,10 @@
 // I AM NOT DONE
 
 enum Message {
+    ChangeColor(u8, u8, u8), // 用于改变颜色的消息变种
+    Quit,                    // 用于退出的消息变种
+    Echo(String),            // 用于回显消息的消息变种
+    Move(Point), 
     // TODO: implement the message variant types based on their usage below
 }
 
@@ -42,6 +46,12 @@ impl State {
         // TODO: create a match expression to process the different message
         // variants
         // Remember: When passing a tuple as a function argument, you'll need
+        match message {
+        Message::ChangeColor(r, g, b) => self.change_color((r, g, b)),
+        Message::Quit => self.quit(),
+        Message::Echo(msg) => self.echo(msg),
+        Message::Move(p) => self.move_position(p),
+    }
         // extra parentheses: fn function((t, u, p, l, e))
     }
 }

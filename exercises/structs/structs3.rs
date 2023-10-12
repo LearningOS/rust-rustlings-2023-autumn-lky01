@@ -29,12 +29,18 @@ impl Package {
         }
     }
 
-    fn is_international(&self) -> ??? {
+    fn is_international(&self,sender_country: String,recipient_country: String) -> bool {
         // Something goes here...
+        if sender_country==recipient_country{
+            false
+        } else{
+            true
+        }
     }
 
-    fn get_fees(&self, cents_per_gram: i32) -> ??? {
+    fn get_fees(&self, cents_per_gram: i32) -> i32 {
         // Something goes here...
+        cents_per_gram*1500
     }
 }
 
@@ -56,9 +62,9 @@ mod tests {
         let sender_country = String::from("Spain");
         let recipient_country = String::from("Russia");
 
-        let package = Package::new(sender_country, recipient_country, 1200);
+        let package = Package::new(sender_country.clone(), recipient_country.clone(), 1200);
 
-        assert!(package.is_international());
+        assert!(package.is_international(sender_country,recipient_country ));
     }
 
     #[test]
@@ -66,9 +72,9 @@ mod tests {
         let sender_country = String::from("Canada");
         let recipient_country = sender_country.clone();
 
-        let package = Package::new(sender_country, recipient_country, 1200);
+        let package = Package::new(sender_country.clone(), recipient_country.clone(), 1200);
 
-        assert!(!package.is_international());
+        assert!(!package.is_international(sender_country,recipient_country));
     }
 
     #[test]
