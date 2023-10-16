@@ -1,7 +1,6 @@
 // box1.rs
 //
-// At compile time, Rust needs to know how much space a type takes up. This
-// becomes problematic for recursive types, where a value can have as part of
+// At compile time, Rust needs to know how much space a type takes up. This becomes problematic for recursive types, where a value can have as part of
 // itself another value of the same type. To get around the issue, we can use a
 // `Box` - a smart pointer used to store data on the heap, which also allows us
 // to wrap a recursive type.
@@ -22,10 +21,10 @@
 
 #[derive(PartialEq, Debug)]
 pub enum List {
-    Cons(i32, List),
+    Cons(i32, Box<List>),
     Nil,
 }
-
+use crate::List::{Cons, Nil};
 fn main() {
     println!("This is an empty cons list: {:?}", create_empty_list());
     println!(
@@ -35,11 +34,13 @@ fn main() {
 }
 
 pub fn create_empty_list() -> List {
-    todo!()
+  let list =Box::new(Nil);
+  *list
 }
 
 pub fn create_non_empty_list() -> List {
-    todo!()
+   let list= Cons(1,Box::new(Nil));
+   list
 }
 
 #[cfg(test)]
